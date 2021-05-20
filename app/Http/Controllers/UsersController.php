@@ -70,7 +70,7 @@ class UsersController extends Controller
      */
     public function show()
     {
-        return view('user.user_dashboard',['data'=>Product::where('status','Available')]);
+        return view('user.user_dashboard',['data'=>Product::where('status','Available')->get()]);
     }
 
     /**
