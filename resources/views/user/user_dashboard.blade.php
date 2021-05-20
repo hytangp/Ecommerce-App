@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="row my-3">
         @foreach ($data as $item)
-        <div class="col-4 m-2">
+        <div class="col-4 p-2">
             <div class="card text-center">
                 <center><img class="card-img-top" src="{{url('/images/'.$item['image'])}}" style="height:200px;width:200px;" alt="Card image cap">
                 </center><div class="card-body">
