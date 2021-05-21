@@ -106,7 +106,7 @@ class UsersController extends Controller
     {
         //
     }
-
+    public $id;
     public function checkAuthUser(Request $request)
     {
         $request->validate([
@@ -115,10 +115,12 @@ class UsersController extends Controller
         ]);
 
         $credential = $request->only('email','password');
-
+         
         if(Auth::attempt($credential))
         {
             $request->session()->regenerate();
+            $request->session()->put('user_email',$credential['email']);
+            //dd($request->session()->get('user_email')); 
             return redirect('/');
         }
         else

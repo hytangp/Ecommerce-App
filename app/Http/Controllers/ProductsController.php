@@ -116,4 +116,9 @@ class ProductsController extends Controller
         $this->data = Product::where('category',$category)->paginate(5);
         return view('admin.products.product_view',['data'=>$this->data]);
     }
+
+    public function userProductShow(Request $request,Product $id)
+    {
+        return view('user.products.product_view',['data'=>$id]);
+    }
 }

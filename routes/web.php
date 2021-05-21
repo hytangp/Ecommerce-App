@@ -73,3 +73,5 @@ Route::post('/postregisteruser',[UsersController::class,'create']);
 Route::post('/postusersignin',[UsersController::class,'checkAuthUser']);
 
 Route::get('/signout',[UsersController::class,'signOut']);
+
+Route::get('/product_view/product={id}',[ProductsController::class,'userProductShow']);
