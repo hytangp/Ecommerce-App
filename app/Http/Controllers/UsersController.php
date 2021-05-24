@@ -106,7 +106,7 @@ class UsersController extends Controller
     {
         //
     }
-    public $id;
+    public $data;
     public function checkAuthUser(Request $request)
     {
         $request->validate([
@@ -116,16 +116,21 @@ class UsersController extends Controller
 
         $credential = $request->only('email','password');
          
-        if(Auth::attempt($credential))
+        if(Auth::attempt(['email'=>$credential['email'],'password'=>$credential['password'],'status'=>'1']))
         {
             $request->session()->regenerate();
-            $request->session()->put('user_email',$credential['email']);
+            $data = User::where('email',$credential['email'])->first();
+            $request->session()->put('user_id',$data->id);
             //dd($request->session()->get('user_email')); 
             return redirect('/');
         }
+        elseif(Auth::attempt(['email'=>$credential['email'],'password'=>$credential['password'],'status'=>'0']))
+        {
+            return back()->with('error', 'User Access has been denied by the Admin.');
+        }
         else
         {
-            return back()->with('error', 'The provided credentials do not match our records.');
+            return back()->with('error', 'The credentials provided doesn\'t match the data');
         }
     }
 

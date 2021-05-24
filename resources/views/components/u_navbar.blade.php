@@ -17,7 +17,10 @@
                 </li>
               @endif
               <li class="nav-item">
-                <a class="nav-link active" href="#">Manage Order</a>
+                <a class="nav-link active" href="/managecart">Manage Cart</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/vieworders">Orders</a>
               </li>
             </ul>
           </div>

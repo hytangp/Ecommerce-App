@@ -86,22 +86,22 @@
                         {
                             type : "GET",
                             url : "/admin/productdelete/"+id,
-                            success: function (response){
+                            success: function (response)
+                            {
                             /*alert("hello");*/
-                            Swal.fire({
-                                position: 'top-end',
-                                icon: 'success',
-                                title: 'Record deleted successfully',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
-                            $('.product-'+id).empty();
-                        },
-                });
-
-            }
-        })
-    });
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Record deleted successfully',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                $('.product-'+id).empty();
+                            },
+                        });
+                }
+            })
+        });
 });    
 
 

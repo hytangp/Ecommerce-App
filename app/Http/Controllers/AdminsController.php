@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Admin;
-
+use App\Models\Order;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Auth;
@@ -55,7 +55,7 @@ class AdminsController extends Controller
      */
     public function show()
     {
-        return view('admin.admin_dashboard',['data'=>Product::count()]);
+        return view('admin.admin_dashboard',['productdata'=>Product::count(),'orderdata'=>Order::count(),'userdata'=>User::count(),'activeusers'=>User::where('status',1)->count(),'inactiveusers'=>User::where('status',0)->count()]);
     }
 
     /**

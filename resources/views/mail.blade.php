@@ -1,0 +1,1 @@
+<h4>{{ $mailing_data }}</h4>

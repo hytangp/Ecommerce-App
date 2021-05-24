@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminsController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\UsersController;
 use App\Models\Admin;
@@ -75,3 +76,15 @@ Route::post('/postusersignin',[UsersController::class,'checkAuthUser']);
 Route::get('/signout',[UsersController::class,'signOut']);
 
 Route::get('/product_view/product={id}',[ProductsController::class,'userProductShow']);
+
+Route::get('/add_to_cart',[ProductsController::class,'addToCart']);
+
+Route::get('/managecart',[ProductsController::class,'userCartShow'])->middleware('auth');
+
+Route::get('order',[OrdersController::class,'create']);
+
+Route::get('/vieworders',[OrdersController::class,'show'])->name('View-Order')->middleware('auth');
+
+Route::get('delete_from_cart',[ProductsController::class,'deleteFromCart']);
+
+Route::post('/search',[ProductsController::class,'findProduct']);

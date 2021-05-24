@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 
+use App\Models\Cart;
+
+use App\Models\User;
+
+use Illuminate\Support\Facades\DB;
+
 class ProductsController extends Controller
 {
     /**
@@ -117,8 +123,50 @@ class ProductsController extends Controller
         return view('admin.products.product_view',['data'=>$this->data]);
     }
 
-    public function userProductShow(Request $request,Product $id)
+    public function userProductShow(Product $id)
     {
         return view('user.products.product_view',['data'=>$id]);
+    }
+
+    public function addToCart(Request $request)
+    {
+        $data = $request->input();
+
+        Cart::create([
+            'product_id' => $data['product_id'],
+            'user_id' => session()->get('user_id'),
+            ]);
+    }
+
+    public function userCartShow()
+    {
+        //$data = Cart::where('user_id',session('user_id'))->distinct()->get();
+        $data = DB::table('carts')
+            ->where('user_id',session()->get('user_id'))
+            ->join('products', 'carts.product_id', '=', 'products.id')
+            ->get();
+        $total = DB::table('carts')
+        ->where('user_id',session()->get('user_id'))
+        ->join('products', 'carts.product_id', '=', 'products.id')
+        ->sum('products.price');
+        return view('user.order.manage_cart',['data'=>$data,'total_price'=>$total]);
+    }
+
+    public function deleteFromCart(Request $request)
+    {
+        $data = $request->input();
+        Cart::where('product_id',$data['product_id'])
+            ->where('user_id',session()->get('user_id'))
+            ->delete();
+    }
+
+    public function findProduct(Request $request)
+    {
+        $findingdata = $request->input('searchproduct');
+        dd($findingdata);
+        $product = Product::where('name','LIKE',"%" .$findingdata ."%")
+                    ->orWhere('id',$findingdata)
+                    ->get();
+        return view('user.user_dashboard',['data'=>$product]);
     }
 }
