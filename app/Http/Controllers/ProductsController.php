@@ -12,6 +12,8 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Category;
+
 class ProductsController extends Controller
 {
     /**
@@ -51,7 +53,8 @@ class ProductsController extends Controller
         ]);
             $imageName = $request->file('product_image')->getClientOriginalName();
             $request->product_image->move(public_path('images'), $imageName);
-            $status ='Available';    
+            $status ='Available';
+    
             $todo = Product::create([
                 'name' => $request->input('product_name'),
                 'category' => $request->input('product_category'),
@@ -74,7 +77,8 @@ class ProductsController extends Controller
     public function adminProductShow()
     {
         $this->data =  Product::paginate(5);
-        return view('admin.products.product_view',['data'=>$this->data]);
+        $category = Category::all();
+        return view('admin.products.product_view',['data'=>$this->data, 'category_data'=>$category]);
     }
 
     /**
@@ -123,7 +127,8 @@ class ProductsController extends Controller
     {
         $data = $request->input();
         $this->data = Product::where('category',$category)->paginate(5);
-        return view('admin.products.product_view',['data'=>$this->data]);
+        $category_data = Category::all();
+        return view('admin.products.product_view',['data'=>$this->data, 'category_data'=>$category_data]);
     }
 
     public function userProductShow(Product $id)
@@ -148,7 +153,7 @@ class ProductsController extends Controller
         //      ->where('user_id',session()->get('user_id'))
         //      ->join('products', 'carts.product_id', '=', 'products.id')
         //      ->get();
-         $data = Cart::with('products')->get();
+         $data = Cart::where('user_id',session('user_id'))->with('products')->get();
          $total = DB::table('carts')
          ->where('user_id',session()->get('user_id'))
          ->join('products', 'carts.product_id', '=', 'products.id')

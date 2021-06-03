@@ -38,10 +38,7 @@ Route::prefix('admin')->group(function()
     Route::get('/manageusers',[AdminsController::class,'adminUserShow'])->name('Manage-User')
     ->middleware('auth:admin');
 
-    Route::get('/addproduct',function()
-    {
-        return view('admin.products.product_add');    
-    })->name('Add-Product')->middleware('auth:admin');
+    Route::get('/addproduct',[AdminsController::class,'adminAddProductView'])->name('Add-Product')->middleware('auth:admin');
 
     Route::post('/postaddproduct',[ProductsController::class,'storeProduct']);
 

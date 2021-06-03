@@ -14,6 +14,8 @@ use App\Models\Product;
 
 use App\Models\User;
 
+use App\Models\Category;
+
 class AdminsController extends Controller
 {
     /**
@@ -34,6 +36,12 @@ class AdminsController extends Controller
     public function create()
     {
         //
+    }
+
+    public function adminAddProductView()
+    {
+        $category = Category::all();
+        return view('admin.products.product_add',['category'=>$category]);
     }
 
     /**

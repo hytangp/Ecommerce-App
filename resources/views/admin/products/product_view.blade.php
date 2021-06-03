@@ -6,9 +6,9 @@
     <div class="col-1 d-flex">  
         <select class="form-select" id="product_category" aria-label="Default select example" onChange="window.location.href = this.options[this.selectedIndex].value">
             <option hidden>Sort:</option>
-            <option value="/admin/sort_product/category=T-Shirts">T-Shirts</option>
-            <option value="/admin/sort_product/category=Jeans">Jeans</option>
-            <option value="/admin/sort_product/category=Shoes">Shoes</option>
+            @foreach($category_data as $item)
+            <option value="/admin/sort_product/category={{$item['category']}}">{{$item['category']}}</option>
+            @endforeach
           </select> 
     </div>
 

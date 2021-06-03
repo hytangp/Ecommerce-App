@@ -75,10 +75,11 @@ class OrdersController extends Controller
      */
     public function show()
     {
-            $data = DB::table('orders')
-                ->where('user_id',session()->get('user_id'))
-                ->join('products', 'orders.product_id', '=', 'products.id')
-                ->get();
+            $data = Order::where('user_id',session('user_id'))->with('products')->get();
+            // $data = DB::table('orders')
+            //     ->where('user_id',session()->get('user_id'))
+            //     ->join('products', 'orders.product_id', '=', 'products.id')
+            //     ->get();
 
             return view('user.order.order_view',['data'=>$data]);
     }

@@ -21,12 +21,12 @@
         @else
         @foreach($data as $item)
             <tr>
-                <td>{{ $item->id }}</td>              
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->category }}</td>
-                <td>{{ $item->image }}</td>
-                <td>{{ $item->price }}</td>
-                <td>{{ $item->description }}</td>
+                <td>{{ $item->products->id }}</td>              
+                <td>{{ $item->products->name }}</td>
+                <td>{{ $item->products->category }}</td>
+                <td>{{ $item->products->image }}</td>
+                <td>{{ $item->products->price }}</td>
+                <td>{{ $item->products->description }}</td>
             </tr>
         @endforeach
         @endif

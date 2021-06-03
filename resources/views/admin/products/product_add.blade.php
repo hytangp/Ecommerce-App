@@ -18,9 +18,9 @@
 
             <select class="form-select mb-2" name="product_category" aria-label="Default select example">
                 <option selected>Product Category</option>
-                <option value="T-Shirts">T-Shirts</option>
-                <option value="Jeans">Jeans</option>
-                <option value="Shoes">Shoes</option>
+                @foreach ($category as $item)
+                <option value="{{$item['category']}}">{{$item['category']}}</option>
+                @endforeach
               </select>
               <span class="text-danger">@error('product_category'){{ $message }}@enderror</span>
 
@@ -58,9 +58,9 @@
 
             <select class="form-select mb-2" name="product_category" aria-label="Default select example">
                 <option selected>{{$data['category']}}</option>
-                <option value="T-Shirts">T-Shirts</option>
-                <option value="Jeans">Jeans</option>
-                <option value="Shoes">Shoes</option>
+                @foreach ($category as $item)
+                <option value="{{$item['category']}}">{{$item['category']}}</option>
+                @endforeach
               </select>
               <span class="text-danger">@error('product_category'){{ $message }}@enderror</span>
 
