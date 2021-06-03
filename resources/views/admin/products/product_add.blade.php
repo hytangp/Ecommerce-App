@@ -5,7 +5,7 @@
     <div class="col-4">
 
         @if(!isset($data))
-        <form method="POST" action="/admin/postaddproduct">
+        <form method="POST" action="/admin/postaddproduct" enctype="multipart/form-data">
             @csrf
             <div class="py-3">
                 <h1>Add Products</h1>

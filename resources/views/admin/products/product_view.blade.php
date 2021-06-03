@@ -49,7 +49,7 @@
                 @else
                 <td id="status_{{$item['id']}}">{{$item['status']}}</td>
                 @endif
-                <td><a href="editproduct/{{ $item['id'] }}" class="btn btn-primary">Edit</a></td>
+                <td><a href="/admin/editproduct/{{ $item['id'] }}" class="btn btn-primary">Edit</a></td>
                 <td><a href="#" class="btn btn-danger delete_btn">Delete</a></td>
             </tr>
         @endforeach

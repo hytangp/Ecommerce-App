@@ -5,6 +5,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <form class="d-flex" action="/search" method="POST">
+            @csrf
             <input class="form-control me-2" type="search" name="searchproduct" placeholder="Search Products" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>

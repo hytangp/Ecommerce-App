@@ -14,6 +14,11 @@
                 <th>Description</th>
             </tr>
         </thead>
+        @if(!$data)
+           <tr>
+               <td colspan=6>No Orders</td>
+           </tr> 
+        @else
         @foreach($data as $item)
             <tr>
                 <td>{{ $item->id }}</td>              
@@ -24,6 +29,7 @@
                 <td>{{ $item->description }}</td>
             </tr>
         @endforeach
+        @endif
     </table>
     <div class="row">
         <div class="col-5">

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Users;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/getusers',[UserController::class,'getUsers'])->name('api_Get-User');
+
+Route::post('/createuser',[UserController::class,'createUser'])->name('api_Create-User');
+
+Route::put('/edituser/{id}',[UserController::class,'editUser'])->name('api_Edit-User');
+
+Route::delete('/deleteuser/{id}',[UserController::class,'deleteUser'])->name('api_Delete-User');

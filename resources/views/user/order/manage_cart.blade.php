@@ -16,13 +16,13 @@
             </tr>
         </thead>
         @foreach($data as $item)
-            <tr class="product-{{$item->id}}" id="{{$item->id}}">
-                <td>{{ $item->id }}</td>              
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->category }}</td>
-                <td>{{ $item->image }}</td>
-                <td>{{ $item->price }}</td>
-                <td>{{ $item->description }}</td>
+            <tr class="product-{{$item->products->id}}" id="{{$item->products->id}}">
+                <td>{{ $item->products->id }}</td>              
+                <td>{{ $item->products->name }}</td>
+                <td>{{ $item->products->category }}</td>
+                <td>{{ $item->products->image }}</td>
+                <td>{{ $item->products->price }}</td>
+                <td>{{ $item->products->description }}</td>
                 <td><a href="#" class="btn btn-danger order_btn">Order</a></td>
                 <td><a href="#" class="btn btn-danger delete_btn">Delete</a></td>
             </tr>
@@ -85,7 +85,7 @@ $(document).ready(function()
                         icon: 'success',
                         title: 'Order Placed successfully',
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 1000
                             })
                     $.ajax({
                         type:'GET',

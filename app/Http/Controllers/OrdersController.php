@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Cart;
 
+use function PHPUnit\Framework\isEmpty;
+
 class OrdersController extends Controller
 {
     /**
@@ -77,6 +79,7 @@ class OrdersController extends Controller
                 ->where('user_id',session()->get('user_id'))
                 ->join('products', 'orders.product_id', '=', 'products.id')
                 ->get();
+
             return view('user.order.order_view',['data'=>$data]);
     }
 

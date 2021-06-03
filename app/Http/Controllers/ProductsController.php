@@ -41,7 +41,7 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
+    public function storeProduct(Request $request)
     {
         $request->validate([
             'product_name' => 'required',
@@ -49,16 +49,19 @@ class ProductsController extends Controller
             'product_price' => 'required',
             'product_desc' => 'required',
         ]);
-        $status='Available';
-        $todo = Product::create([
-            'name' => $request->input('product_name'),
-            'category' => $request->input('product_category'),
-            'image' => $request->input('product_image'),
-            'price' => $request->input('product_price'),
-            'description' => $request->input('product_desc'),
-            'status' => $status,
-            ]);
-        return redirect()->route('Manage-Product');
+            $imageName = $request->file('product_image')->getClientOriginalName();
+            $request->product_image->move(public_path('images'), $imageName);
+            $status ='Available';    
+            $todo = Product::create([
+                'name' => $request->input('product_name'),
+                'category' => $request->input('product_category'),
+                'image' => $imageName,
+                'price' => $request->input('product_price'),
+                'description' => $request->input('product_desc'),
+                'status' => $status,
+                ]);
+                return redirect()->route('Manage-Product');
+        
     }
 
     /**
@@ -140,15 +143,16 @@ class ProductsController extends Controller
 
     public function userCartShow()
     {
-        //$data = Cart::where('user_id',session('user_id'))->distinct()->get();
-        $data = DB::table('carts')
-            ->where('user_id',session()->get('user_id'))
-            ->join('products', 'carts.product_id', '=', 'products.id')
-            ->get();
-        $total = DB::table('carts')
-        ->where('user_id',session()->get('user_id'))
-        ->join('products', 'carts.product_id', '=', 'products.id')
-        ->sum('products.price');
+        //$data = Cart::where('user_id',session('user_id'))->with(['product'])->first();
+        //  $data = DB::table('carts')
+        //      ->where('user_id',session()->get('user_id'))
+        //      ->join('products', 'carts.product_id', '=', 'products.id')
+        //      ->get();
+         $data = Cart::with('products')->get();
+         $total = DB::table('carts')
+         ->where('user_id',session()->get('user_id'))
+         ->join('products', 'carts.product_id', '=', 'products.id')
+         ->sum('products.price');
         return view('user.order.manage_cart',['data'=>$data,'total_price'=>$total]);
     }
 
@@ -163,7 +167,7 @@ class ProductsController extends Controller
     public function findProduct(Request $request)
     {
         $findingdata = $request->input('searchproduct');
-        dd($findingdata);
+        // dd($findingdata);
         $product = Product::where('name','LIKE',"%" .$findingdata ."%")
                     ->orWhere('id',$findingdata)
                     ->get();

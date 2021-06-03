@@ -43,7 +43,7 @@ Route::prefix('admin')->group(function()
         return view('admin.products.product_add');    
     })->name('Add-Product')->middleware('auth:admin');
 
-    Route::post('/postaddproduct',[ProductsController::class,'store']);
+    Route::post('/postaddproduct',[ProductsController::class,'storeProduct']);
 
     Route::get('/productdelete/{id}',[ProductsController::class,'destroy']);
 
@@ -63,7 +63,7 @@ Route::get('/',[UsersController::class,'show']);
 
 Route::get('/signin',function(){
     return view('user.user_signin');
-});
+})->name('User-Signin');
 
 Route::get('/signup',function(){
     return view('user.user_signup');
@@ -75,9 +75,9 @@ Route::post('/postusersignin',[UsersController::class,'checkAuthUser']);
 
 Route::get('/signout',[UsersController::class,'signOut']);
 
-Route::get('/product_view/product={id}',[ProductsController::class,'userProductShow']);
+Route::get('/product_view/product={id}',[ProductsController::class,'userProductShow'])->middleware('auth');
 
-Route::get('/add_to_cart',[ProductsController::class,'addToCart']);
+Route::get('/add_to_cart',[ProductsController::class,'addToCart'])->middleware('auth');
 
 Route::get('/managecart',[ProductsController::class,'userCartShow'])->middleware('auth');
 
