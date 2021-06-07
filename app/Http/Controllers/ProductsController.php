@@ -89,7 +89,8 @@ class ProductsController extends Controller
      */
     public function edit(Product $id)
     {
-        return view('admin.products.product_add',['data'=>$id]);
+        $category = Category::all();   
+        return view('admin.products.product_add',['data'=>$id, 'category'=>$category]);
     }
 
     /**
@@ -154,6 +155,8 @@ class ProductsController extends Controller
         //      ->join('products', 'carts.product_id', '=', 'products.id')
         //      ->get();
          $data = Cart::where('user_id',session('user_id'))->with('products')->get();
+        //  echo "<pre />";
+        //  print_r($data->toArray());die;
          $total = DB::table('carts')
          ->where('user_id',session()->get('user_id'))
          ->join('products', 'carts.product_id', '=', 'products.id')

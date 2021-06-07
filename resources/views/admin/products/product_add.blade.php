@@ -18,7 +18,7 @@
 
             <select class="form-select mb-2" name="product_category" aria-label="Default select example">
                 <option selected>Product Category</option>
-                @foreach ($category as $item)
+                @foreach($category as $item)
                 <option value="{{$item['category']}}">{{$item['category']}}</option>
                 @endforeach
               </select>
@@ -58,7 +58,7 @@
 
             <select class="form-select mb-2" name="product_category" aria-label="Default select example">
                 <option selected>{{$data['category']}}</option>
-                @foreach ($category as $item)
+                @foreach($category as $item)
                 <option value="{{$item['category']}}">{{$item['category']}}</option>
                 @endforeach
               </select>
